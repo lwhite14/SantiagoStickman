@@ -18,11 +18,23 @@ public class PlayerMovement : MonoBehaviour
     float jumpPressedRemeber = 0f;
     public float cutJumpHeight = 0.5f;
 
+    [Header("Animation Variables")]
+    public Animator anim;
+    public float smoothIdleTimer = 0.2f;
+    float smoothIdle;
+
+    void Start()
+    {
+        smoothIdle = smoothIdleTimer;
+    }
 
     void Update()
     {
         HorizontalMovement();
         Jump();
+        Animation();
+
+        Debug.Log(smoothIdleTimer);
     }
 
     void HorizontalMovement() 
@@ -60,6 +72,31 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
+    }
+
+    void Animation() 
+    {
+        if (xMove != 0)
+        {
+            smoothIdleTimer = smoothIdle;
+            anim.SetBool("isRunning", true);
+            if (xMove > 0)
+            {
+                GetComponent<SpriteRenderer>().flipX = false;
+            }
+            else 
+            {
+                GetComponent<SpriteRenderer>().flipX = true;
+            }
+        }
+        else
+        {
+            smoothIdleTimer -= Time.deltaTime;
+            if (smoothIdleTimer < 0)
+            {
+                anim.SetBool("isRunning", false);
+            }
+        }
     }
 
     public void SetIsLanded(bool newIsLanded) 
