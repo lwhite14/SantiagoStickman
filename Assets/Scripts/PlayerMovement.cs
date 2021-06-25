@@ -33,8 +33,6 @@ public class PlayerMovement : MonoBehaviour
         HorizontalMovement();
         Jump();
         Animation();
-
-        Debug.Log(smoothIdleTimer);
     }
 
     void HorizontalMovement() 
@@ -69,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
             jumpPressedRemeber = 0f;
             groundedRemember = 0f;
             rigid.AddForce(transform.up * jumpForce);
-
+            anim.SetBool("hasJumped", true);
         }
 
     }
@@ -102,5 +100,11 @@ public class PlayerMovement : MonoBehaviour
     public void SetIsLanded(bool newIsLanded) 
     {
         isLanded = newIsLanded;
+        anim.SetBool("isLanded", isLanded);
+
+        if (!isLanded) 
+        {
+            anim.SetBool("hasJumped", false);
+        }
     }
 }
