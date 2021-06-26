@@ -16,10 +16,10 @@ public class CameraController : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, newPos, (smoothing * 0.001f));
         }
 
-        if (transform.position.y <= 0)
+        if (target.position.y <= 0)
         {
             stopFollowing = true;
-            transform.position = new Vector3(transform.position.x, 0, -10);
+            transform.position = new Vector3(target.position.x, 0, -10);
         }
         else
         {
