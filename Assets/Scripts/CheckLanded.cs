@@ -9,10 +9,20 @@ public class CheckLanded : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         playerMovement.SetIsLanded(true);
+
+        if (collision.tag == "MovingPlatform") 
+        {
+            playerMovement.SetPlayerParent(collision.gameObject);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         playerMovement.SetIsLanded(false);
+
+        if (collision.tag == "MovingPlatform")
+        {
+            playerMovement.SetPlayerParent(null);
+        }
     }
 }

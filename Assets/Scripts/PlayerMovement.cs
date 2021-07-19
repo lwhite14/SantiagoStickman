@@ -107,4 +107,16 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("hasJumped", false);
         }
     }
+
+    public void SetPlayerParent(GameObject movingPlatform) 
+    {
+        if (movingPlatform != null)
+        {
+            transform.parent = movingPlatform.transform;
+        }
+        else 
+        {
+            transform.parent = null;
+        }
+    }
 }
